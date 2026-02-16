@@ -38,7 +38,7 @@
  * @author Katrin Moritz
  */
 
-#include "nxpcup_race.h"
+#include "nxpcup_race_tflo.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -70,12 +70,13 @@ Vector copy_vectors(const pixy_vector_s &pixy, uint8_t num) {
 
 roverControl raceTrack(const pixy_vector_s &pixy)
 {
+	PX4_WARN("HELLO WORLD");
 	Vector main_vec;
 	Vector vec1 = copy_vectors(pixy, 1);
 	Vector vec2 = copy_vectors(pixy, 2);
 	uint8_t frameWidth = 79;
 	uint8_t frameHeight = 52;
-	int16_t window_center = (frameWidth / 2);
+	int16_t window_center = (frameWidth / 2); // NOTE: improvable on accuracy
 	roverControl control{};
 	float x, y;					 // calc gradient and position of main vector
 	static hrt_abstime no_line_time = 0;		// time variable for time since no line detected
@@ -92,7 +93,7 @@ roverControl raceTrack(const pixy_vector_s &pixy)
 		}else{
 			time_diff = hrt_elapsed_time_atomic(&no_line_time);
 			control.steer = 0.0f;
-			if(time_diff > 10000){
+			if(time_diff > 1000){
 				/* Stopping if no vector is available */
 				control.steer = 0.0f;
 				control.speed = SPEED_STOP;
@@ -108,7 +109,7 @@ roverControl raceTrack(const pixy_vector_s &pixy)
 		main_vec.m_x1 = (vec1.m_x1 + vec2.m_x1) / 2;
 		control.steer = (float)(main_vec.m_x1 - window_center) / (float)frameWidth;
 
-		control.speed = SPEED_FAST;
+		control.speed = SPEED_SLOW;
 		break;
 
 	default:
@@ -130,8 +131,8 @@ roverControl raceTrack(const pixy_vector_s &pixy)
 		}
 		break;
 	}
-	control.steer = 0;
-	control.speed = SPEED_NORMAL;
-
+	control.speed = SPEED_FAST;
+	//print_usage("Speeding");
 	return control;
+
 }

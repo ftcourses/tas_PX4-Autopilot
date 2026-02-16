@@ -115,7 +115,8 @@ px4_add_board(
 		fixedwing_control # Tutorial code from https://px4.io/dev/example_fixedwing_control
 		hello
 		hwtest # Hardware test
-		nxpcup
+		#nxpcup
+		nxpcup_tflo
 		pixy_uorb
 		#matlab_csv_serial
 		px4_mavlink_debug # Tutorial code from http://dev.px4.io/en/debug/debug_values.html

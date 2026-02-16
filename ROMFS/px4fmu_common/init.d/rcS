@@ -558,6 +558,9 @@ else
 		reboot
 	fi
 
+	pixy_uorb start
+	#nxpcup_work_tflo start
+
 #
 # End of autostart.
 #

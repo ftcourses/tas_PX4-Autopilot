@@ -67,9 +67,10 @@ int pixy_uorb_thread_main(int argc, char **argv)
 		pixy.getVersion();
 		pixy.version->print();
 		usleep(1000);
-
+		PX4_WARN("soon start getting vecs\n");
 		// Loop indefinitely and publish vector data
 		while (1) {
+			PX4_WARN("getting vecs\n");
 			pixy.line.getAllFeatures(LINE_VECTOR, wait);		// get line vectors from pixy
             		if(pixy.line.numVectors) {
 				_pixy_vector.m0_x0 = pixy.line.vectors[0].m_x0;

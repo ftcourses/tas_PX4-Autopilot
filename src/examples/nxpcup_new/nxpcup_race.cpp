@@ -75,7 +75,7 @@ roverControl raceTrack(const pixy_vector_s &pixy)
 	Vector vec2 = copy_vectors(pixy, 2);
 	uint8_t frameWidth = 79;
 	uint8_t frameHeight = 52;
-	int16_t window_center = (frameWidth / 2);
+	int16_t window_center = (frameWidth / 2); // NOTE: improvable on accuracy
 	roverControl control{};
 	float x, y;					 // calc gradient and position of main vector
 	static hrt_abstime no_line_time = 0;		// time variable for time since no line detected
